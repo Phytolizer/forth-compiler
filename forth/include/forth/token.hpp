@@ -36,6 +36,6 @@ template <> struct fmt::formatter<fth::token> {
 
     template <typename FormatContext> auto format(const fth::token& token, FormatContext& ctx) {
         return format_to(ctx.out(), "{{kind: {}, span: {}, text: '{}'}}",
-            magic_enum::enum_name(token.kind()), token.span(), token.text());
+                magic_enum::enum_name(token.kind()), token.span(), token.text());
     }
 };

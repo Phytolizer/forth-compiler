@@ -6,3 +6,4 @@ AlignOperands: DontAlign
 AlignAfterOpenBracket: false
 IncludeBlocks: Regroup
 PointerAlignment: Left
+ContinuationIndentWidth: 8

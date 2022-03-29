@@ -25,6 +25,6 @@ template <> struct fmt::formatter<fth::source_span> {
     template <typename FormatContext>
     auto format(const fth::source_span& span, FormatContext& ctx) {
         return format_to(ctx.out(), "({}, {}) -> ({}, {})", span.begin.line + 1,
-            span.begin.column + 1, span.end.line + 1, span.end.column + 1);
+                span.begin.column + 1, span.end.line + 1, span.end.column + 1);
     }
 };

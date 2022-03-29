@@ -33,9 +33,9 @@ fth::token fth::lexer::iterator::scan() {
     source_span span = {begin, end};
 
     return token{
-        classify_token((*m_text)[span]),
-        span,
-        std::string{(*m_text)[span]},
+            classify_token((*m_text)[span]),
+            span,
+            std::string{(*m_text)[span]},
     };
 }
 
@@ -106,7 +106,7 @@ fth::lexer::iterator fth::lexer::iterator::operator++(int) {
 
 bool fth::lexer::iterator::operator==(const iterator& other) const {
     if (m_just_scanned.kind() == token_kind::eof &&
-        other.m_just_scanned.kind() == token_kind::eof) {
+            other.m_just_scanned.kind() == token_kind::eof) {
         return true;
     }
     return m_text == other.m_text && m_location == other.m_location;
