@@ -32,7 +32,11 @@ fth::token fth::lexer::iterator::scan() {
     source_location end = m_location;
     source_span span = {begin, end};
 
-    return {classify_token((*m_text)[span]), span, std::string{(*m_text)[span]}};
+    return token{
+        classify_token((*m_text)[span]),
+        span,
+        std::string{(*m_text)[span]},
+    };
 }
 
 void fth::lexer::iterator::advance() {
