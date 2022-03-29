@@ -5,3 +5,4 @@ AllowShortFunctionsOnASingleLine: Empty
 AlignOperands: false
 AlignAfterOpenBracket: false
 IncludeBlocks: Regroup
+PointerAlignment: Left

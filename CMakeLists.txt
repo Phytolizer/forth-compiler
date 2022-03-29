@@ -13,4 +13,11 @@ CPMAddPackage(
     GIT_TAG 8.1.1
 )
 
+CPMAddPackage(
+    NAME magic_enum
+    GITHUB_REPOSITORY Neargye/magic_enum
+    GIT_TAG v0.7.3
+)
+
+add_subdirectory(forth)
 add_subdirectory(forthc)
