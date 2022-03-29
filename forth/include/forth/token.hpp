@@ -1,8 +1,11 @@
 #pragma once
 
+#include "fmt/core.h"
+#include "fmt/format.h"
 #include "forth/source_span.hpp"
 #include "forth/token_kind.hpp"
 
+#include <ostream>
 #include <string>
 #include <string_view>
 
@@ -22,4 +25,17 @@ class token {
     std::string_view text() const;
 };
 
+std::ostream& operator<<(std::ostream& os, const token& token);
+
 } // namespace fth
+
+template <> struct fmt::formatter<fth::token> {
+    constexpr auto parse(format_parse_context& ctx) {
+        return ctx.begin();
+    }
+
+    template <typename FormatContext> auto format(const fth::token& token, FormatContext& ctx) {
+        return format_to(ctx.out(), "{{kind: {}, span: {}, text: '{}'}}",
+            magic_enum::enum_name(token.kind()), token.span(), token.text());
+    }
+};

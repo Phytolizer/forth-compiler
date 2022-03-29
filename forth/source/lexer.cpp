@@ -20,12 +20,13 @@ fth::token fth::lexer::iterator::scan() {
     skip_whitespace();
 
     if (!m_has_text) {
+        m_at_end = true;
         return {token_kind::eof, {m_location, m_location}, ""};
     }
 
     source_location begin = m_location;
 
-    while (!std::isspace(current())) {
+    while (m_has_text && !std::isspace(current())) {
         advance();
     }
 
@@ -39,6 +40,8 @@ void fth::lexer::iterator::advance() {
     if (current() == '\n') {
         ++m_location.line;
         m_location.column = 0;
+    } else if (current() == '\0') {
+        m_has_text = false;
     } else {
         ++m_location.column;
     }
@@ -78,10 +81,11 @@ fth::token_kind fth::lexer::iterator::classify_token(std::string_view text) {
     return token_kind::number;
 }
 
-fth::lexer::iterator::iterator() : m_location(0, 0, 0), m_has_text(false) {}
+fth::lexer::iterator::iterator() : m_location(0, 0, 0), m_has_text(false), m_at_end(true) {}
 
 fth::lexer::iterator::iterator(const fth::source_text* text)
-    : m_text(text), m_location(0, 0, 0), m_has_text(true), m_just_scanned(scan()) {}
+    : m_text(text), m_location(0, 0, 0), m_has_text(true), m_at_end(false), m_just_scanned(scan()) {
+}
 
 const fth::lexer::iterator::value_type& fth::lexer::iterator::operator*() const {
     return m_just_scanned;
@@ -99,8 +103,19 @@ fth::lexer::iterator fth::lexer::iterator::operator++(int) {
 }
 
 bool fth::lexer::iterator::operator==(const iterator& other) const {
-    if (!m_has_text) {
-        return !other.m_has_text;
+    if (m_just_scanned.kind() == token_kind::eof &&
+        other.m_just_scanned.kind() == token_kind::eof) {
+        return true;
     }
     return m_text == other.m_text && m_location == other.m_location;
+}
+
+fth::lexer::lexer(const source_text& text) : m_text(text) {}
+
+fth::lexer::iterator fth::lexer::begin() const {
+    return iterator{&m_text};
+}
+
+fth::lexer::iterator fth::lexer::end() const {
+    return iterator{};
 }

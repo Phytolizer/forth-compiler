@@ -22,6 +22,7 @@ class lexer {
         const source_text* m_text;
         source_location m_location;
         bool m_has_text;
+        bool m_at_end;
         token m_just_scanned;
 
         void skip_whitespace();
