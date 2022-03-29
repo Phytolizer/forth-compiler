@@ -20,7 +20,6 @@ fth::token fth::lexer::iterator::scan() {
     skip_whitespace();
 
     if (!m_has_text) {
-        m_at_end = true;
         return {token_kind::eof, {m_location, m_location}, ""};
     }
 
@@ -81,11 +80,10 @@ fth::token_kind fth::lexer::iterator::classify_token(std::string_view text) {
     return token_kind::number;
 }
 
-fth::lexer::iterator::iterator() : m_location(0, 0, 0), m_has_text(false), m_at_end(true) {}
+fth::lexer::iterator::iterator() : m_location(0, 0, 0), m_has_text(false) {}
 
 fth::lexer::iterator::iterator(const fth::source_text* text)
-    : m_text(text), m_location(0, 0, 0), m_has_text(true), m_at_end(false), m_just_scanned(scan()) {
-}
+    : m_text(text), m_location(0, 0, 0), m_has_text(true), m_just_scanned(scan()) {}
 
 const fth::lexer::iterator::value_type& fth::lexer::iterator::operator*() const {
     return m_just_scanned;
