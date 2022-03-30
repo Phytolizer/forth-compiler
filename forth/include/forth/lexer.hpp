@@ -14,11 +14,11 @@
 
 namespace fth {
 
-class lexer {
+class lexer final {
     const source_text& m_text;
 
   public:
-    class iterator {
+    class iterator final {
         const source_text* m_text;
         source_location m_location;
         bool m_has_text;

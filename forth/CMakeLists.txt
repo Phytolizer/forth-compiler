@@ -1,6 +1,6 @@
 add_library(
-    forth "source/lexer.cpp" "source/source_span.cpp" "source/source_text.cpp"
-          "source/token.cpp"
+    forth "source/lexer.cpp" "source/operation.cpp" "source/parser.cpp"
+          "source/source_span.cpp" "source/source_text.cpp" "source/token.cpp"
 )
 
 target_include_directories(forth PUBLIC include)
