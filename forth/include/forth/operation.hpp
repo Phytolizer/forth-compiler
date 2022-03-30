@@ -1,5 +1,6 @@
 #pragma once
 
+#include "forth/stack_type.hpp"
 #include "forth/token.hpp"
 #include "magic_enum.hpp"
 
@@ -25,11 +26,11 @@ enum class operation_kind {
 class operation final {
     token m_origin;
     operation_kind m_kind;
-    std::int64_t m_operand;
+    stack_type m_operand;
 
   public:
     explicit operation(token&& origin, operation_kind kind);
-    explicit operation(token&& origin, operation_kind kind, std::int64_t operand);
+    explicit operation(token&& origin, operation_kind kind, stack_type operand);
 
     constexpr const token& origin() const {
         return m_origin;
@@ -39,7 +40,7 @@ class operation final {
         return m_kind;
     }
 
-    constexpr std::int64_t operand() const {
+    constexpr stack_type operand() const {
         return m_operand;
     }
 };

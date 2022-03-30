@@ -2,6 +2,7 @@
 
 #include "forth/source_location.hpp"
 #include "forth/source_text.hpp"
+#include "forth/stack_type.hpp"
 
 #include <cctype>
 #include <charconv>
@@ -75,7 +76,7 @@ fth::token_kind fth::lexer::iterator::classify_token(std::string_view text) {
         return token_kind::slash;
     }
 
-    std::int64_t value;
+    stack_type value;
     auto [_, ec] = std::from_chars(text.data(), text.data() + text.size(), value);
     if (ec != std::errc{}) {
         return token_kind::bad;

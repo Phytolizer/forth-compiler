@@ -1,6 +1,7 @@
 #include "forth/parser.hpp"
 
 #include "forth/operation.hpp"
+#include "forth/stack_type.hpp"
 #include "forth/token_kind.hpp"
 
 #include <cassert>
@@ -22,7 +23,7 @@ fth::operation fth::parse_token(token&& token) {
         case token_kind::period:
             return operation{std::move(token), operation_kind::dump};
         case token_kind::number: {
-            std::int64_t operand;
+            stack_type operand;
             auto [_, ec] = std::from_chars(
                     token.text().data(), token.text().data() + token.text().size(), operand);
             assert(ec == std::errc{});
